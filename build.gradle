@@ -1,11 +1,19 @@
 buildscript {
-    ext { springBootVersion = '2.2.0.BUILD-SNAPSHOT' }
-}
-
-plugins {
-	id 'org.springframework.boot' version '2.1.3.RELEASE'
-	id 'org.jetbrains.kotlin.jvm' version '1.2.71'
-	id 'org.jetbrains.kotlin.plugin.spring' version '1.2.71'
+    ext {
+		springBootVersion = '2.1.3.RELEASE'
+		kotlinVersion = '1.2.71'
+	}
+	repositories {
+		maven {
+			url "https://plugins.gradle.org/m2/"
+		}
+	}
+	dependencies {
+		classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
+		classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}"
+		classpath "org.jetbrains.kotlin:kotlin-allopen:${kotlinVersion}"
+		classpath "org.jetbrains.kotlin:kotlin-noarg:${kotlinVersion}"
+	}
 }
 
 apply plugin: 'org.springframework.boot'
@@ -14,19 +22,14 @@ apply plugin: 'io.spring.dependency-management'
 group = 'org.revcrm'
 version = '0.0.1-SNAPSHOT'
 
-sourceCompatibility = '1.8'
-
 repositories {
 	mavenCentral()
 }
 
-bootJar {
-	baseName = 'revcrm-demo'
-	mainClassName = 'org.revcrm.CRMApplication'
-}
-
 subprojects {
-	apply plugin: "org.jetbrains.kotlin.jvm"
+	apply plugin: 'kotlin'
+	apply plugin: 'kotlin-spring'
+//	apply plugin: 'kotlin-jpa'
 	apply plugin: 'io.spring.dependency-management'
 
 	repositories {
