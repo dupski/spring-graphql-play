@@ -1,0 +1,10 @@
+server:
+  port: 8800
+openid:
+  issuer: accounts.google.com
+  clientId: 252486211013-8m24n1m58ugjjcn2qhm6mdgq1q4sganu.apps.googleusercontent.com
+  clientSecret: vT2cqmC3J9dRev4VJnaZuc9M
+  userAuthorizationUri: https://accounts.google.com/o/oauth2/auth
+  accessTokenUri: https://www.googleapis.com/oauth2/v3/token
+  jwksUri: https://www.googleapis.com/oauth2/v3/certs
+  redirectUri: http://localhost:8800/
