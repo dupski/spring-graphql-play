@@ -42,7 +42,7 @@ class OpenIDConfiguration {
     }
 
     @Bean
-    fun openIdTemplate(clientContext: OAuth2ClientContext): OAuth2RestTemplate {
+    fun openIdRestTemplate(clientContext: OAuth2ClientContext): OAuth2RestTemplate {
         return OAuth2RestTemplate(openIdConfig(), clientContext)
     }
 }

@@ -21,10 +21,9 @@ import java.util.*
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 import org.springframework.security.authentication.AuthenticationManager
+import org.springframework.web.context.support.WebApplicationContextUtils
 
-
-
-class OpenIDConnectFilter : AbstractAuthenticationProcessingFilter("/login") {
+class OpenIDConnectFilter : AbstractAuthenticationProcessingFilter("/**") {
 
     var restTemplate: OAuth2RestTemplate? = null
 
@@ -34,6 +33,13 @@ class OpenIDConnectFilter : AbstractAuthenticationProcessingFilter("/login") {
 
     override fun attemptAuthentication(
             request: HttpServletRequest, response: HttpServletResponse): Authentication {
+
+        if (restTemplate == null) {
+            val servletContext = request.servletContext
+            val webApplicationContext = WebApplicationContextUtils.getWebApplicationContext(servletContext)
+            restTemplate = webApplicationContext!!.getBean(OAuth2RestTemplate::class.java)
+        }
+
         val accessToken: OAuth2AccessToken
         try {
             accessToken = restTemplate!!.getAccessToken()
